@@ -5,7 +5,6 @@ Library
 Temp
 Build
 Library/
-Packages/
 obj/
 
 # ===================================== #
@@ -40,7 +39,6 @@ Thumbs.db
 *.g.props
 *.g.targets
 
-Packages_/
 !*.meta
 Assets/Packages.meta
 Assets/WSATestCertificate.pfx.*

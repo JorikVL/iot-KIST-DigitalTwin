@@ -11,17 +11,17 @@ using UnityEngine;
 public class ZoomToMapPin : MonoBehaviour
 {
     private MapRenderer _map;
-    private MapPin _mapPin;
+    public MapPin _mapPin;
 
     void Start()
     {
-        _map = GameObject.Find("Map").GetComponent<MapRenderer>();
+        _map = GameObject.Find("GameObject").GetComponent<MapRenderer>();
         Debug.Assert(_map != null);
         _mapPin = GetComponent<MapPin>();
         Debug.Assert(_mapPin != null);
     }
 
-    public void Zoom()
+public void Zoom()
     {
         var mapScene = new MapSceneOfLocationAndZoomLevel(_mapPin.Location, _map.ZoomLevel + 1.01f);
         _map.SetMapScene(mapScene);

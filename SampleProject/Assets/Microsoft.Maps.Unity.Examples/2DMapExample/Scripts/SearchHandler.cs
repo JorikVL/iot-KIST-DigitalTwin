@@ -20,6 +20,8 @@ public class SearchHandler : MonoBehaviour
         }
 
         var searchText = _inputField.text;
+
+        //this line is zooming and centering the map on somthing given by the searchbar, hardcoding for every single sensor we'll be using
         var result = await MapLocationFinder.FindLocations(searchText);
         if (result.Locations.Count > 0)
         {

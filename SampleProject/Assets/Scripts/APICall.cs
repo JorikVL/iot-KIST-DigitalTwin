@@ -58,6 +58,13 @@ namespace Assets.APIScripts
         {
             ApiCall();
         }
+        public void AreaOne()
+        {
+            cityInput = "Antwerpen";
+            DEFAULT_URL = $"api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&APPID=" + API_KEY + "&units=metric";
+            ApiCall();
+            
+        }
 
     }
 }

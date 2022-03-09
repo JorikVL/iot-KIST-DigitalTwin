@@ -14,7 +14,6 @@ namespace Assets.APIScripts
         public Text DataDisplay;
         public Text CityName;
         string targetUrl = DEFAULT_URL;
-        public string recievedData;
 
         public void ReadStringInput(string s)
         {
@@ -46,7 +45,6 @@ namespace Assets.APIScripts
             Debug.Log(data);
             recentData = data;
             DataDisplay.text = recentData;
-            recievedData = data;
             
         }
         public void ApiCall()
@@ -61,9 +59,8 @@ namespace Assets.APIScripts
         public void AreaOne()
         {
             cityInput = "Antwerpen";
-            DEFAULT_URL = $"api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&APPID=" + API_KEY + "&units=metric";
+            DEFAULT_URL = "localhost:1880/weather";
             ApiCall();
-            
         }
 
     }

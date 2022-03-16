@@ -59,8 +59,13 @@ namespace Assets.APIScripts
         public void AreaOne()
         {
             cityInput = "Antwerpen";
-            DEFAULT_URL = "localhost:1880/weather";
+            DEFAULT_URL = "localhost:1880/Area1";
             ApiCall();
+        }
+        public void AreaTwo()
+        {
+            cityInput = "CapeTown";
+            DEFAULT_URL = "localhost:1880/Area2";
         }
 
     }

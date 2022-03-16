@@ -67,6 +67,17 @@ namespace Assets.APIScripts
             cityInput = "CapeTown";
             DEFAULT_URL = "localhost:1880/Area2";
         }
+        public void AreaTree()
+        {
+            cityInput = "Zanzibar";
+            DEFAULT_URL = "localhost:1880/Area3";
+        }
+
+        public void endProgram()
+        {
+            Application.Quit();
+            Debug.Log("Quit button works!");
+        }
 
     }
 }

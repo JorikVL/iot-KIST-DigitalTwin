@@ -9,7 +9,7 @@ public class AlignToMap : MonoBehaviour
 
     void Start()
     {
-        _transformToAlignTo = GameObject.Find("GameObject").transform;
+        //_transformToAlignTo = GameObject.Find("GameObject").transform;
 
         if (_transformToAlignTo != null)
         {

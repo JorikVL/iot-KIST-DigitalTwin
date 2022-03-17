@@ -4,6 +4,7 @@ using System;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+
 namespace Assets.APIScripts
 {
     public class APICall : MonoBehaviour
@@ -14,7 +15,7 @@ namespace Assets.APIScripts
         public Text DataDisplay;
         public Text CityName;
         string targetUrl = DEFAULT_URL;
-
+        private string recentData = "";
         public void ReadStringInput(string s)
         {
             cityInput = s;
@@ -28,8 +29,6 @@ namespace Assets.APIScripts
             targetUrl = DEFAULT_URL;
             CityName.text = cityInput;
         }
-        private string recentData = "";
-
         private IEnumerator RequestRoutine(string url, Action<string> callback = null)
         {
             var request = UnityWebRequest.Get(url);
@@ -60,7 +59,6 @@ namespace Assets.APIScripts
         {
             cityInput = "Antwerpen";
             DEFAULT_URL = "localhost:1880/Area1";
-            ApiCall();
         }
         public void AreaTwo()
         {

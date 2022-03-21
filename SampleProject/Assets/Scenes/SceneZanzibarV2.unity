@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7037c053365a5d041960320c768ff8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pinPrefab: {fileID: 1589080285299284650, guid: 39c7fdec10fd33f4da55df889e4a636d,
+  pinPrefab: {fileID: 7896930375377128065, guid: 39c7fdec10fd33f4da55df889e4a636d,
     type: 3}
 --- !u!114 &26182496
 MonoBehaviour:
@@ -870,6 +870,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7484646010849414981, guid: f241c23c6594f6c42b94edd4fc7c55d9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8042597523268217699, guid: f241c23c6594f6c42b94edd4fc7c55d9,
         type: 3}
       propertyPath: m_text
@@ -910,7 +915,8 @@ PrefabInstance:
       propertyPath: m_VerticalAlignment
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7484646010849414981, guid: f241c23c6594f6c42b94edd4fc7c55d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f241c23c6594f6c42b94edd4fc7c55d9, type: 3}
 --- !u!1 &214442940
 GameObject:

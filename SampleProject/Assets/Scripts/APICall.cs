@@ -58,17 +58,17 @@ namespace Assets.APIScripts
         public void AreaOne()
         {
             cityInput = "Antwerpen";
-            DEFAULT_URL = "localhost:1880/Area1";
+            DEFAULT_URL = "http://159.223.210.10:1880/Area1";
         }
         public void AreaTwo()
         {
             cityInput = "CapeTown";
-            DEFAULT_URL = "localhost:1880/Area2";
+            DEFAULT_URL = "http://159.223.210.10:1880/Area2";
         }
         public void AreaTree()
         {
             cityInput = "Zanzibar";
-            DEFAULT_URL = "localhost:1880/Area3";
+            DEFAULT_URL = "http://159.223.210.10:1880/Area3";
         }
 
         public void endProgram()

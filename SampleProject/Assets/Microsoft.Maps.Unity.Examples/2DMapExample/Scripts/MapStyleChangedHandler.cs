@@ -13,16 +13,16 @@ public class MapStyleChangedHandler : MonoBehaviour
         defaultTextureTileLayer.ImageryType = dropdownValue == 0 ? MapImageryType.Symbolic : MapImageryType.Aerial;
     }
 
-    public void OnToggleTraffic()
-    {
-        var trafficLayer = GetComponent<DefaultTrafficTextureTileLayer>();
-        if (trafficLayer == null)
-        {
-            trafficLayer = gameObject.AddComponent<DefaultTrafficTextureTileLayer>();
-        }
-        else
-        {
-            trafficLayer.enabled = !trafficLayer.enabled;
-        }
-    }
+    //public void OnToggleTraffic()
+    //{
+    //    var trafficLayer = GetComponent<DefaultTrafficTextureTileLayer>();
+    //    if (trafficLayer == null)
+    //    {
+    //        trafficLayer = gameObject.AddComponent<DefaultTrafficTextureTileLayer>();
+    //    }
+    //    else
+    //    {
+    //        trafficLayer.enabled = !trafficLayer.enabled;
+    //    }
+    //}
 }

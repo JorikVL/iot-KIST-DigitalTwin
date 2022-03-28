@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 26182508}
   - component: {fileID: 26182509}
   - component: {fileID: 26182498}
+  - component: {fileID: 26182495}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -166,6 +167,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &26182495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26182493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7037c053365a5d041960320c768ff8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pinPrefab: {fileID: 7896930375377128065, guid: 39c7fdec10fd33f4da55df889e4a636d,
+    type: 3}
 --- !u!114 &26182496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5632,7 +5647,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA9 2022 Microsoft, \xA9 2022 TomTom"
+  m_text: "\xA9 2022 Microsoft"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

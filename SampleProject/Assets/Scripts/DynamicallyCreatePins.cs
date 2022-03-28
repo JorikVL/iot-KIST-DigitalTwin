@@ -8,11 +8,7 @@ public class DynamicallyCreatePins : MonoBehaviour
 {
     public GameObject pinPrefab;
 
-    float colorValue = 0.2f;
-
-    void start()
-    {
-    }
+    float colorValue = 0.9f;
 
     void Update()
     {

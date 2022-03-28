@@ -7,6 +7,11 @@ using UnityEngine.UI;
 
 namespace Assets.APIScripts
 {
+    public class testData{
+        public double temp;
+        public string city;
+    }
+
     public class APICall : MonoBehaviour
     {
         private const string API_KEY = "73cb75a2a3ef8b58e77c3581ec7b4726";
@@ -15,6 +20,7 @@ namespace Assets.APIScripts
         public Text DataDisplay;
         public Text CityName;
         string targetUrl = DEFAULT_URL;
+        testData tt;
         private string recentData = "";
         public void ReadStringInput(string s)
         {
@@ -37,14 +43,17 @@ namespace Assets.APIScripts
             yield return request.SendWebRequest();
             var data = request.downloadHandler.text;
 
+            tt = JsonUtility.FromJson<testData>(data);
+            Debug.Log(tt.city);
+
             callback?.Invoke(data);
         }
         private void ResponseCallback(string data)
         {
             Debug.Log(data);
             recentData = data;
-            DataDisplay.text = recentData;
-            
+            String Displaytext = "City: " + tt.city + "\n" + "Temperature: " + tt.temp;
+            DataDisplay.text = Displaytext;
         }
         public void ApiCall()
         {

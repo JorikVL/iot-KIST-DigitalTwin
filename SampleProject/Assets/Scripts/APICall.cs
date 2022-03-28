@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Assets.APIScripts
 {
-    public class testData{
+    public class EnvironmentData{
         public double temp;
         public string city;
     }
@@ -20,7 +20,7 @@ namespace Assets.APIScripts
         public Text DataDisplay;
         public Text CityName;
         string targetUrl = DEFAULT_URL;
-        testData tt;
+        EnvironmentData environmentData;
         private string recentData = "";
         public void ReadStringInput(string s)
         {
@@ -38,13 +38,10 @@ namespace Assets.APIScripts
         private IEnumerator RequestRoutine(string url, Action<string> callback = null)
         {
             var request = UnityWebRequest.Get(url);
-
-
             yield return request.SendWebRequest();
             var data = request.downloadHandler.text;
 
-            tt = JsonUtility.FromJson<testData>(data);
-            Debug.Log(tt.city);
+            environmentData = JsonUtility.FromJson<EnvironmentData>(data);
 
             callback?.Invoke(data);
         }
@@ -52,7 +49,7 @@ namespace Assets.APIScripts
         {
             Debug.Log(data);
             recentData = data;
-            String Displaytext = "City: " + tt.city + "\n" + "Temperature: " + tt.temp;
+            String Displaytext = "City: " + environmentData.city + "\nTemperature: " + environmentData.temp;
             DataDisplay.text = Displaytext;
         }
         public void ApiCall()

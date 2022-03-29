@@ -30,8 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/vitterb.unity
     guid: 63a8cf7d801283345939b45c69ae1bdf
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 766101fe93f94cb4c9e616d1f934cc59,
-      type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: a68f851ea77061e4bad16c4c303927ee,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9adf96fbaf06f7a4abdbad3307e32268,

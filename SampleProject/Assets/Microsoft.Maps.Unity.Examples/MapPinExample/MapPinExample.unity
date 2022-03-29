@@ -277,6 +277,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3445010261997386319, guid: b6a2476254bd12a4795e1eb8dd07936f,
         type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445010261997386319, guid: b6a2476254bd12a4795e1eb8dd07936f,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -289,6 +294,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089881048666689018, guid: b6a2476254bd12a4795e1eb8dd07936f,
+        type: 3}
+      propertyPath: trackedHandness
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089881048666689018, guid: b6a2476254bd12a4795e1eb8dd07936f,
+        type: 3}
+      propertyPath: trackedTargetType
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8494851948187920207, guid: b6a2476254bd12a4795e1eb8dd07936f,
         type: 3}
@@ -371,7 +386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1238286526
 Transform:
   m_ObjectHideFlags: 0
@@ -528,9 +543,9 @@ MonoBehaviour:
   _numElevationTileFallbackLods: 2
   _requestTilesAroundView: 1
   _center:
-    _latitude: 37.2779714028801
-    _longitude: -121.219809007815
-  _zoomLevel: 5.51
+    _latitude: -6.11
+    _longitude: 39.37
+  _zoomLevel: 10
   _minimumZoomLevel: 5.51
   _maximumZoomLevel: 20
   _mapTerrainType: 0

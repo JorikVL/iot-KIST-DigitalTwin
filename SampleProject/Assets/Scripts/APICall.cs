@@ -16,7 +16,7 @@ namespace Assets.APIScripts
     {
         private const string API_KEY = "73cb75a2a3ef8b58e77c3581ec7b4726";
         public static string cityInput = "Zanzibar";
-        private static string DEFAULT_URL = $"api.openweathermap.org/data/2.5/weather?q={cityInput}&APPID={API_KEY}&units=metric";
+        private static string DEFAULT_URL = "http://192.168.100.162:1880/Area3";
         public Text DataDisplay;
         public Text CityName;
         string targetUrl = DEFAULT_URL;
@@ -64,17 +64,17 @@ namespace Assets.APIScripts
         public void AreaOne()
         {
             cityInput = "Antwerpen";
-            DEFAULT_URL = "http://159.223.210.10:1880/Area1";
+            DEFAULT_URL = "http://192.168.100.162:1880/Area1";
         }
         public void AreaTwo()
         {
             cityInput = "CapeTown";
-            DEFAULT_URL = "http://159.223.210.10:1880/Area2";
+            DEFAULT_URL = "http://192.168.100.162:1880/Area2";
         }
         public void AreaTree()
         {
             cityInput = "Zanzibar";
-            DEFAULT_URL = "http://159.223.210.10:1880/Area3";
+            DEFAULT_URL = "http://192.168.100.162:1880/Area3";
         }
 
         public void endProgram()

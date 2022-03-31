@@ -22,22 +22,25 @@ public class DynamicallyCreatePins : MonoBehaviour
         PopulateData();  
         foreach (Sensor sensor in sensors)
         {
-                //Instantiate Pin
-                var mapPin = Instantiate(pinPrefab);
-                //Set pin as child of map
-                mapPin.transform.parent = gameObject.transform;
-                var mapPinComponent = mapPin.GetComponent<MapPin>();
-                mapPinComponent.Location = sensor.position;
+            //Instantiate Pin
+            var mapPin = Instantiate(pinPrefab);
+            //Set pin as child of map
+            mapPin.transform.parent = gameObject.transform;
+            var mapPinComponent = mapPin.GetComponent<MapPin>();
+            mapPinComponent.Location = sensor.position;
                 
-                //Get cube
-                var Root = mapPin.transform.Find("Root").gameObject;
-                var Cube = Root.transform.Find("Cube").gameObject;
+            //Get object
+            var Root = mapPin.transform.Find("Root").gameObject;
+            var Cube = Root.transform.Find("Cube").gameObject;
+            var Stem = Root.transform.Find("MapPinStem").gameObject;
 
-                //Set color cube
-                var mapPinRenderer = Cube.GetComponent<Renderer>();
-                Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.value);
+            //Set color objects
+            var mapPinRenderer = Cube.GetComponent<Renderer>();
+            var stemRenderer = Stem.GetComponent<Renderer>();
+            Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.value);
 
-                mapPinRenderer.material.color = lerpedColor;
+            mapPinRenderer.material.color = lerpedColor;
+            stemRenderer.material.color = lerpedColor;
             }
     }
 

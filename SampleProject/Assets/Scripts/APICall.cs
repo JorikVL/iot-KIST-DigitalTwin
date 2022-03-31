@@ -35,6 +35,7 @@ namespace Assets.APIScripts
             targetUrl = DEFAULT_URL;
             CityName.text = cityInput;
         }
+
         private IEnumerator RequestRoutine(string url, Action<string> callback = null)
         {
             var request = UnityWebRequest.Get(url);
@@ -45,6 +46,7 @@ namespace Assets.APIScripts
 
             callback?.Invoke(data);
         }
+
         private void ResponseCallback(string data)
         {
             Debug.Log(data);
@@ -52,6 +54,7 @@ namespace Assets.APIScripts
             String Displaytext = "City: " + environmentData.city + "\nTemperature: " + environmentData.temp;
             DataDisplay.text = Displaytext;
         }
+
         public void ApiCall()
         {
             this.StartCoroutine(this.RequestRoutine(targetUrl, this.ResponseCallback));
@@ -61,16 +64,19 @@ namespace Assets.APIScripts
         {
             ApiCall();
         }
+        
         public void AreaOne()
         {
             cityInput = "Antwerpen";
             DEFAULT_URL = "http://159.223.210.10:1880/Area1";
         }
+
         public void AreaTwo()
         {
             cityInput = "CapeTown";
             DEFAULT_URL = "http://159.223.210.10:1880/Area2";
         }
+
         public void AreaTree()
         {
             cityInput = "Zanzibar";

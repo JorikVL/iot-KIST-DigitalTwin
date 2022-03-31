@@ -179,9 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7037c053365a5d041960320c768ff8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pinPrefab: {fileID: 7896930375377128065, guid: 39c7fdec10fd33f4da55df889e4a636d,
+  pinPrefab: {fileID: 2437152191947785070, guid: 39c7fdec10fd33f4da55df889e4a636d,
     type: 3}
-  jsonFile: {fileID: 4900000, guid: 352dc0ec8fb56d54984a10cd0015ce3d, type: 3}
 --- !u!114 &26182496
 MonoBehaviour:
   m_ObjectHideFlags: 0

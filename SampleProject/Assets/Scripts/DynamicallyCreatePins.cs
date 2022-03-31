@@ -18,12 +18,10 @@ public class DynamicallyCreatePins : MonoBehaviour
     public GameObject pinPrefab;
     public List<Sensor> sensors = new List<Sensor>();
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.C)){
-            PopulateData();  
-            foreach (Sensor sensor in sensors)
-            {
+    void Start(){
+        PopulateData();  
+        foreach (Sensor sensor in sensors)
+        {
                 //Instantiate Pin
                 var mapPin = Instantiate(pinPrefab);
                 //Set pin as child of map
@@ -41,21 +39,19 @@ public class DynamicallyCreatePins : MonoBehaviour
 
                 mapPinRenderer.material.color = lerpedColor;
             }
-        }
     }
 
     public void PopulateData(){
+        AddComponent(new LatLon(-6.234412, 39.238479), 0.9f);
+        AddComponent(new LatLon(-5.984683, 39.188133), 0.3f);
+        AddComponent(new LatLon(-6.353185, 39.400993), 0.1f);
+
+    }
+
+    public void AddComponent(LatLon pos, float value){
         Sensor data = new Sensor();
-        data.position = new LatLon(-6.234412, 39.238479);
-        data.value = 0.9f;
+        data.position = pos;
+        data.value = value;
         sensors.Add(data);
-        Sensor data2 = new Sensor();
-        data2.position = new LatLon(-5.984683, 39.188133);
-        data2.value = 0.2f;
-        sensors.Add(data2);
-        Sensor data3 = new Sensor();
-        data3.position = new LatLon(-6.353185, 39.400993);
-        data3.value = 0.5f;
-        sensors.Add(data3);
     }
 }

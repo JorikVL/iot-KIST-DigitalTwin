@@ -46,12 +46,6 @@ public class DynamicallyCreatePins : MonoBehaviour
     }
 
     public void PopulateData(){
-        _Reader = GameObject.Find("Reader");
-        var _JSON = _Reader.GetComponent<JSONReader>();
-        /*foreach (Sensor sensor in _JSON.mySensorList.sensor)
-        {
-            Debug.Log(sensor.position + "" + sensor.value);
-        }*/
         AddComponent(new LatLon(-6.234412, 39.238479), 0.9f);
         AddComponent(new LatLon(-5.984683, 39.188133), 0.3f);
         AddComponent(new LatLon(-6.353185, 39.400993), 0.1f);

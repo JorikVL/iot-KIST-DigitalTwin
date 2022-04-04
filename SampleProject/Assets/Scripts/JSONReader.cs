@@ -10,8 +10,18 @@ public class JSONReader : MonoBehaviour
     [System.Serializable]
     public class Sensor
     {
-        public LatLon position;
-        public float value;
+        public string id;
+        public string name;
+        public string datetime;
+        public int pm25;
+        public int pm10;
+        public int temp;
+        public int pressure;
+        public byte humidity;
+        public int co2;
+        public int tvoc;
+        public byte salinity;
+        public bool battery;
     }
 
     [System.Serializable]
@@ -27,7 +37,7 @@ public class JSONReader : MonoBehaviour
         mySensorList = JsonUtility.FromJson<SensorList>(textJSON.text);
         foreach (Sensor sensor in mySensorList.sensor)
         {
-            Debug.Log(sensor.position + " " + sensor.value);
+            //Debug.Log(sensor.position + " " + sensor.value);
         }
     }
 

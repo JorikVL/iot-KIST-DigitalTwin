@@ -2,16 +2,46 @@
    "sensor":
    [
       {
-        "position":"-6.234412, 39.238479" ,
-        "value":"0.4f"
+        "id": "001",
+        "name": "Sensor1",
+        "datetime": "tst",
+        "pm25": 4,
+        "pm10": 3,
+        "temp": 200,
+        "pressure": 4,
+        "humidity": 54,
+        "co2": 4,
+        "tvoc": 3,
+        "salinity": 99,
+        "battery": true
       },
       {
-        "position":"-5.984683, 39.188133" ,
-        "value":"0.2f"
+        "id": "001",
+        "name": "Sensor1",
+        "datetime": "tst",
+        "pm25": 4,
+        "pm10": 3,
+        "temp": 200,
+        "pressure": 4,
+        "humidity": 54,
+        "co2": 4,
+        "tvoc": 3,
+        "salinity": 99,
+        "battery": true
       },
       {
-        "position":"-6.353185, 39.400993" ,
-        "value":"0.9f"
+        "id": "001",
+        "name": "Sensor1",
+        "datetime": "tst",
+        "pm25": 4,
+        "pm10": 3,
+        "temp": 200,
+        "pressure": 4,
+        "humidity": 54,
+        "co2": 4,
+        "tvoc": 3,
+        "salinity": 99,
+        "battery": true
         }
    ]
 }

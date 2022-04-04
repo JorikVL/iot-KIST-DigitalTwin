@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 5438842025377589915}
   - component: {fileID: 8123311198756055370}
   m_Layer: 0
-  m_Name: pinPrefab
+  m_Name: MapPin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

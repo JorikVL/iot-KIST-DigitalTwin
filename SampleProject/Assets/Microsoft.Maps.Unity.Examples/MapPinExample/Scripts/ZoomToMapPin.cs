@@ -15,7 +15,7 @@ public class ZoomToMapPin : MonoBehaviour
 
     void Start()
     {
-        _map = GameObject.Find("GameObject").GetComponent<MapRenderer>();
+        _map = GameObject.Find("Map").GetComponent<MapRenderer>();
         Debug.Assert(_map != null);
         _mapPin = GetComponent<MapPin>();
         Debug.Assert(_mapPin != null);

@@ -50,7 +50,6 @@ namespace Assets.APIScripts
         private void ResponseCallback(string data)
         {
             Debug.Log(data);
-            Debug.Log("test");
             recentData = data;
             String Displaytext = "City: " + environmentData.city + "\nTemperature: " + environmentData.temp;
             DataDisplay.text = Displaytext;

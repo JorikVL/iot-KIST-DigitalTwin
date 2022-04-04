@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: AreaTree
         m_Mode: 1
         m_Arguments:
@@ -1402,51 +1402,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433582546}
   m_CullTransparentMesh: 0
---- !u!1 &462763293
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 462763295}
-  - component: {fileID: 462763294}
-  m_Layer: 0
-  m_Name: ApiCallScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &462763294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462763293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b844b45e66ed67b4fbd268073ad79c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DataDisplay: {fileID: 1460499780}
-  CityName: {fileID: 1528036683}
---- !u!4 &462763295
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462763293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 242.01845, y: 688.2431, z: -13.376114}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &473649382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,7 +1790,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: AreaOne
         m_Mode: 1
         m_Arguments:
@@ -2612,7 +2567,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: ApiCall
         m_Mode: 1
         m_Arguments:
@@ -2937,7 +2892,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: ApiCall
         m_Mode: 1
         m_Arguments:
@@ -3067,7 +3022,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: endProgram
         m_Mode: 1
         m_Arguments:
@@ -3344,7 +3299,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: AreaTwo
         m_Mode: 1
         m_Arguments:
@@ -3503,7 +3458,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 462763294}
+      - m_Target: {fileID: 0}
         m_MethodName: ReadStringInput
         m_Mode: 0
         m_Arguments:
@@ -4982,6 +4937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1656858389}
   - component: {fileID: 1656858388}
+  - component: {fileID: 1656858390}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -5016,8 +4972,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656858390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656858387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b844b45e66ed67b4fbd268073ad79c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DataDisplay: {fileID: 1460499780}
+  CityName: {fileID: 1528036683}
 --- !u!1 &1689121039
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class OnMousePin : MonoBehaviour
     private JSONReader jsonReader;
 
     void Start(){
+        //Get manager object and JSONReader component
         manager = GameObject.Find("Manager");
         jsonReader = manager.GetComponent<JSONReader>();
     }

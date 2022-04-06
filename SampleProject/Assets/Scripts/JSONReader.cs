@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class JSONReader : MonoBehaviour
 {
     public TextAsset textJSON;
+    public Text titleField;
     public Text textField;
 
     [System.Serializable]
@@ -26,6 +27,8 @@ public class JSONReader : MonoBehaviour
         public bool battery;
     }
 
+    List<Sensor> myList = new List<Sensor>();
+
     [System.Serializable]
     public class SensorList
     {
@@ -37,6 +40,9 @@ public class JSONReader : MonoBehaviour
     void Start()
     {
         mySensorList = GetData();
+        foreach (Sensor sensor in mySensorList.sensor){
+            myList.Add(sensor);
+        }
     }
 
     private SensorList GetData(){
@@ -44,10 +50,8 @@ public class JSONReader : MonoBehaviour
     }
 
     public void ShowSensor(int numberSensor){
-        foreach (Sensor sensor in mySensorList.sensor){
-            if (sensor.id == numberSensor){
-                textField.text = "sensor: " + sensor.name;
-            }
+        titleField.text = myList[numberSensor].name;
+        textField.text = "ID: " + myList[numberSensor].id + "\nPM2.5: " + myList[numberSensor].pm25;
         }
     }
-}
+

@@ -20,20 +20,25 @@ public class DynamicallyCreatePins : MonoBehaviour
     public List<Sensor> sensors = new List<Sensor>();
 
     void Start(){
-        PopulateData();  
+        PopulateData();
+        int counter = 0; 
         foreach (Sensor sensor in sensors)
         {
-            //Instantiate Pin
+            //Instantiate Pin & assign pin number
             var mapPin = Instantiate(pinPrefab);
+            OnMousePin onMousePin = mapPin.GetComponent<OnMousePin>();
+            onMousePin.sensorNumber = counter;
+            counter += 1;
+
             //Set pin as child of map
             mapPin.transform.parent = gameObject.transform;
             var mapPinComponent = mapPin.GetComponent<MapPin>();
             mapPinComponent.Location = sensor.position;
                 
             //Get object
-            var Root = mapPin.transform.Find("Root").gameObject;
-            var Cube = Root.transform.Find("Cube").gameObject;
-            var Stem = Root.transform.Find("MapPinStem").gameObject;
+            var Root = FindObject(mapPin, "Root");
+            var Cube = FindObject(Root, "Cube");
+            var Stem = FindObject(Root, "MapPinStem");
 
             //Set color objects
             var mapPinRenderer = Cube.GetComponent<Renderer>();
@@ -45,13 +50,17 @@ public class DynamicallyCreatePins : MonoBehaviour
             }
     }
 
-    public void PopulateData(){
+    private GameObject FindObject(GameObject obj, string objToFind){
+        return obj.transform.Find(objToFind).gameObject;
+    }
+
+    private void PopulateData(){
         AddComponent(new LatLon(-6.234412, 39.238479), 0.9f);
         AddComponent(new LatLon(-5.984683, 39.188133), 0.3f);
         AddComponent(new LatLon(-6.353185, 39.400993), 0.1f);
     }
 
-    public void AddComponent(LatLon pos, float value){
+    private void AddComponent(LatLon pos, float value){
         Sensor data = new Sensor();
         data.position = pos;
         data.value = value;

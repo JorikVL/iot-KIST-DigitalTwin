@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.Geospatial;
+using UnityEngine.UI;
 
 public class JSONReader : MonoBehaviour
 {
     public TextAsset textJSON;
+    public Text textField;
 
     [System.Serializable]
     public class Sensor
     {
-        public string id;
+        public int id;
         public string name;
         public string datetime;
         public int pm25;
@@ -34,16 +36,18 @@ public class JSONReader : MonoBehaviour
 
     void Start()
     {
-        mySensorList = JsonUtility.FromJson<SensorList>(textJSON.text);
-        foreach (Sensor sensor in mySensorList.sensor)
-        {
-            //Debug.Log(sensor.position + " " + sensor.value);
-        }
+        mySensorList = GetData();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private SensorList GetData(){
+        return JsonUtility.FromJson<SensorList>(textJSON.text);
+    }
+
+    public void ShowSensor(int numberSensor){
+        foreach (Sensor sensor in mySensorList.sensor){
+            if (sensor.id == numberSensor){
+                textField.text = "sensor: " + sensor.name;
+            }
+        }
     }
 }

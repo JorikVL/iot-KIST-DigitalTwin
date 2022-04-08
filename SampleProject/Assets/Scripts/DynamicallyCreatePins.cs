@@ -27,32 +27,35 @@ public class DynamicallyCreatePins : MonoBehaviour
 
         foreach (JSONReader.Sensor sensor in jsonReader.sensors)
         {
-            Debug.Log("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
-            //Instantiate Pin & assign pin number
-            var mapPin = Instantiate(pinPrefab);
-            mapPins.Add(mapPin);
-            OnMousePin onMousePin = mapPin.GetComponent<OnMousePin>();
-            onMousePin.sensorId = sensor._id;
+            if (sensor._id != null && sensor.Longtitude != null && sensor.Latitude != null){
+                Debug.Log("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
+                //Instantiate Pin & assign pin number
+                var mapPin = Instantiate(pinPrefab);
+                mapPins.Add(mapPin);
+                OnMousePin onMousePin = mapPin.GetComponent<OnMousePin>();
+                onMousePin.sensorId = sensor._id;
 
-            //Set pin as child of map
-            mapPin.transform.parent = gameObject.transform;
-            var mapPinComponent = mapPin.GetComponent<MapPin>();
-            LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
-            mapPinComponent.Location = _pos;
-                
-            //Get object
-            var Root = FindObject(mapPin, "Root");
-            var Cube = FindObject(Root, "Cube");
-            var Stem = FindObject(Root, "MapPinStem");
+                //Set pin as child of map
+                mapPin.transform.parent = gameObject.transform;
+                var mapPinComponent = mapPin.GetComponent<MapPin>();
+                LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
+                mapPinComponent.Location = _pos;
+                    
+                //Get object
+                var Root = FindObject(mapPin, "Root");
+                var Cube = FindObject(Root, "Cube");
+                var Stem = FindObject(Root, "MapPinStem");
 
-            //Set color objects
-            var mapPinRenderer = Cube.GetComponent<Renderer>();
-            var stemRenderer = Stem.GetComponent<Renderer>();
-            Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.temp);
+                //Set color objects
+                var mapPinRenderer = Cube.GetComponent<Renderer>();
+                var stemRenderer = Stem.GetComponent<Renderer>();
+                Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.temp);
 
-            mapPinRenderer.material.color = lerpedColor;
-            stemRenderer.material.color = lerpedColor;
+                mapPinRenderer.material.color = lerpedColor;
+                stemRenderer.material.color = lerpedColor;
             }
+        }
+
     }
 
     public void ChangeColorPin(){

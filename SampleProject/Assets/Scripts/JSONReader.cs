@@ -23,15 +23,20 @@ public class JSONReader : MonoBehaviour
         public int salinity;
         public int temp;
         public int tvox;
-        public DateTime time;
+        public string time;
     }
 
     public List<Sensor> sensors = new List<Sensor>(); 
 
     public void AddSensor(string json){
         try{
-        sensors.Add(JsonUtility.FromJson<Sensor>(json));
-        Debug.Log("Sensor added to list");
+            Sensor newSensor = JsonUtility.FromJson<Sensor>(json);
+            if (newSensor != null) {
+                sensors.Add(newSensor);
+                Debug.Log("Sensor added to list");
+            } else {
+                Debug.Log("Sensor returned null");
+            }
         }
         catch {
             Debug.Log("Add sensor to list failed!");

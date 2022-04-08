@@ -7,10 +7,6 @@ using UnityEngine.UI;
 
 namespace Assets.APIScripts
 {
-    public class EnvironmentData{
-        public double temp;
-        public string city;
-    }
 
     public class APICall : MonoBehaviour
     {
@@ -20,8 +16,9 @@ namespace Assets.APIScripts
         public Text DataDisplay;
         public Text CityName;
         string targetUrl = DEFAULT_URL;
-        EnvironmentData environmentData;
         private string recentData = "";
+        private JSONReader jsonReader;    
+
         public void ReadStringInput(string s)
         {
             cityInput = s;
@@ -41,18 +38,19 @@ namespace Assets.APIScripts
             var request = UnityWebRequest.Get(url);
             yield return request.SendWebRequest();
             var data = request.downloadHandler.text;
-
-            environmentData = JsonUtility.FromJson<EnvironmentData>(data);
-
-            callback?.Invoke(data);
+            if (data != null)
+            {
+                callback?.Invoke(data);
+            } else {
+                Debug.Log("API call returned null");
+            }
         }
 
         private void ResponseCallback(string data)
         {
-            Debug.Log(data);
+            jsonReader = this.GetComponent<JSONReader>();
+            jsonReader.AddSensor(data);
             recentData = data;
-            String Displaytext = "City: " + environmentData.city + "\nTemperature: " + environmentData.temp;
-            DataDisplay.text = Displaytext;
         }
 
         public void ApiCall()
@@ -60,9 +58,9 @@ namespace Assets.APIScripts
             this.StartCoroutine(this.RequestRoutine(targetUrl, this.ResponseCallback));
         }
 
-        public void Start()
+        public void Awake()
         {
-            ApiCall();
+            GetData();
         }
         
         public void AreaOne()
@@ -80,7 +78,23 @@ namespace Assets.APIScripts
         public void AreaTree()
         {
             cityInput = "Zanzibar";
-            DEFAULT_URL = "http://159.223.210.10:1880/Area3";
+            DEFAULT_URL = "http://192.168.100.134:1880/Data1";
+        }
+
+        public void GetData(){
+            Debug.Log("GetData");
+            for (int i = 1; i <= 20; i++)
+            {
+                targetUrl = "http://192.168.100.134:1880/Data" + i;
+                try
+                {
+                    ApiCall();
+                }
+                catch (System.Exception)
+                {
+                    Debug.Log("APICall failed");
+                }
+            }
         }
 
         public void endProgram()
@@ -88,6 +102,5 @@ namespace Assets.APIScripts
             Application.Quit();
             Debug.Log("Quit button works!");
         }
-
     }
 }

@@ -4,36 +4,40 @@ using UnityEngine;
 using Microsoft.Geospatial;
 using Microsoft.Maps.Unity;
 
-public class Sensor{
-    public LatLon position;
-    public float value;
-}
-
-public class Sensors{
-    public Sensor[] sensors;
-}
-
 public class DynamicallyCreatePins : MonoBehaviour
 {
     public GameObject pinPrefab;
     public GameObject _Reader;
-    public List<Sensor> sensors = new List<Sensor>();
+    public List<GameObject> mapPins = new List<GameObject>(); 
+
+    private GameObject manager;
+    private JSONReader jsonReader;
 
     void Start(){
-        PopulateData();
-        int counter = 0; 
-        foreach (Sensor sensor in sensors)
+        manager = GameObject.Find("Manager");
+        jsonReader = manager.GetComponent<JSONReader>();
+    }
+
+    public void Update(){
+        Debug.Log("Start DynamicallyCreatePins");
+        foreach (GameObject mapPin in mapPins){
+            Destroy(mapPin);
+        }
+
+        foreach (JSONReader.Sensor sensor in jsonReader.sensors)
         {
+            Debug.Log("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
             //Instantiate Pin & assign pin number
             var mapPin = Instantiate(pinPrefab);
+            mapPins.Add(mapPin);
             OnMousePin onMousePin = mapPin.GetComponent<OnMousePin>();
-            onMousePin.sensorNumber = counter;
-            counter += 1;
+            //onMousePin.sensorNumber = jsonReader._id;
 
             //Set pin as child of map
             mapPin.transform.parent = gameObject.transform;
             var mapPinComponent = mapPin.GetComponent<MapPin>();
-            mapPinComponent.Location = sensor.position;
+            LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
+            mapPinComponent.Location = _pos;
                 
             //Get object
             var Root = FindObject(mapPin, "Root");
@@ -43,27 +47,14 @@ public class DynamicallyCreatePins : MonoBehaviour
             //Set color objects
             var mapPinRenderer = Cube.GetComponent<Renderer>();
             var stemRenderer = Stem.GetComponent<Renderer>();
-            Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.value);
+            //Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.value);
 
-            mapPinRenderer.material.color = lerpedColor;
-            stemRenderer.material.color = lerpedColor;
+            //mapPinRenderer.material.color = lerpedColor;
+            //stemRenderer.material.color = lerpedColor;
             }
     }
 
     private GameObject FindObject(GameObject obj, string objToFind){
         return obj.transform.Find(objToFind).gameObject;
-    }
-
-    private void PopulateData(){
-        AddComponent(new LatLon(-6.234412, 39.238479), 0.9f);
-        AddComponent(new LatLon(-5.984683, 39.188133), 0.3f);
-        AddComponent(new LatLon(-6.353185, 39.400993), 0.1f);
-    }
-
-    private void AddComponent(LatLon pos, float value){
-        Sensor data = new Sensor();
-        data.position = pos;
-        data.value = value;
-        sensors.Add(data);
     }
 }

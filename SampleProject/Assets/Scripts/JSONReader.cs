@@ -3,55 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.Geospatial;
 using UnityEngine.UI;
+using System;
 
 public class JSONReader : MonoBehaviour
 {
-    public TextAsset textJSON;
     public Text titleField;
     public Text textField;
 
-    [System.Serializable]
+    [Serializable]
     public class Sensor
     {
-        public int id;
-        public string name;
-        public string datetime;
-        public int pm25;
+        public string _id;
+        public string Name;
+        public double Latitude;
+        public double Longtitude;
+        public int battery;
+        public int CO2;
+        public int humidity;
         public int pm10;
-        public int temp;
+        public int pm25;
         public int pressure;
-        public byte humidity;
-        public int co2;
-        public int tvoc;
-        public byte salinity;
-        public bool battery;
+        public int salinity;
+        public int temp;
+        public int tvox;
+        public DateTime time;
     }
 
-    List<Sensor> myList = new List<Sensor>();
+    public List<Sensor> sensors = new List<Sensor>(); 
 
-    [System.Serializable]
-    public class SensorList
-    {
-        public Sensor[] sensor;
-    }
-
-    public SensorList mySensorList = new SensorList();
-
-    void Start()
-    {
-        mySensorList = GetData();
-        foreach (Sensor sensor in mySensorList.sensor){
-            myList.Add(sensor);
+    public void AddSensor(string json){
+        try{
+        sensors.Add(JsonUtility.FromJson<Sensor>(json));
+        Debug.Log("Sensor added to list");
         }
-    }
-
-    private SensorList GetData(){
-        return JsonUtility.FromJson<SensorList>(textJSON.text);
+        catch {
+            Debug.Log("Add sensor to list failed!");
+        }
     }
 
     public void ShowSensor(int numberSensor){
-        titleField.text = myList[numberSensor].name;
-        textField.text = "ID: " + myList[numberSensor].id + "\nPM2.5: " + myList[numberSensor].pm25;
+        //titleField.text = myList[numberSensor].name;
+        //textField.text = "ID: " + myList[numberSensor].id + "\nPM2.5: " + myList[numberSensor].pm25;
         }
-    }
-
+}

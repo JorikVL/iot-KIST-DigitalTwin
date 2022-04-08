@@ -7,9 +7,6 @@ using System;
 
 public class JSONReader : MonoBehaviour
 {
-    public Text titleField;
-    public Text textField;
-
     [Serializable]
     public class Sensor
     {
@@ -40,9 +37,4 @@ public class JSONReader : MonoBehaviour
             Debug.Log("Add sensor to list failed!");
         }
     }
-
-    public void ShowSensor(int numberSensor){
-        //titleField.text = myList[numberSensor].name;
-        //textField.text = "ID: " + myList[numberSensor].id + "\nPM2.5: " + myList[numberSensor].pm25;
-        }
 }

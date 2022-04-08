@@ -16,9 +16,10 @@ public class DynamicallyCreatePins : MonoBehaviour
     void Start(){
         manager = GameObject.Find("Manager");
         jsonReader = manager.GetComponent<JSONReader>();
+        InvokeRepeating("PlacePins", 5, 60);
     }
 
-    public void Update(){
+    public void PlacePins(){
         Debug.Log("Start DynamicallyCreatePins");
         foreach (GameObject mapPin in mapPins){
             Destroy(mapPin);
@@ -31,7 +32,7 @@ public class DynamicallyCreatePins : MonoBehaviour
             var mapPin = Instantiate(pinPrefab);
             mapPins.Add(mapPin);
             OnMousePin onMousePin = mapPin.GetComponent<OnMousePin>();
-            //onMousePin.sensorNumber = jsonReader._id;
+            onMousePin.sensorId = sensor._id;
 
             //Set pin as child of map
             mapPin.transform.parent = gameObject.transform;
@@ -47,11 +48,15 @@ public class DynamicallyCreatePins : MonoBehaviour
             //Set color objects
             var mapPinRenderer = Cube.GetComponent<Renderer>();
             var stemRenderer = Stem.GetComponent<Renderer>();
-            //Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.value);
+            Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.temp);
 
-            //mapPinRenderer.material.color = lerpedColor;
-            //stemRenderer.material.color = lerpedColor;
+            mapPinRenderer.material.color = lerpedColor;
+            stemRenderer.material.color = lerpedColor;
             }
+    }
+
+    public void ChangeColorPin(){
+
     }
 
     private GameObject FindObject(GameObject obj, string objToFind){

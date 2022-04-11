@@ -49,13 +49,43 @@ public class DynamicallyCreatePins : MonoBehaviour
                 //Set color objects
                 var mapPinRenderer = Cube.GetComponent<Renderer>();
                 var stemRenderer = Stem.GetComponent<Renderer>();
-                Color lerpedColor = Color.Lerp(Color.red, Color.green, sensor.temp);
+                float val = 0f;
+                /*switch (switch_on)
+                {
+                    case "temp":
+                        val = (float)sensor.temp;
+                        val = (val/40f);
+                        break;
+                    case "pressure":
+                        val = (float)sensor.pressure;
+                        break;
+                    case "pm25":
+                        val = (float)sensor.pm25;
+                        break;
+                    case "pm10":
+                        val = (float)sensor.pm10;
+                        break;
+                    case "humidity":
+                        val = (float)sensor.humidity;
+                        break;
+                    case "CO2":
+                        val = (float)sensor.CO2;
+                        break;
+                    case "tvoc":
+                        val = (float)sensor.tvoc;
+                        break;
+                    case "salinity":
+                        val = (float)sensor.salinity;
+                        break;
+                    default:
+                        Debug.Log("No important value found!")
+                }*/
+                Color lerpedColor = Color.Lerp(Color.red, Color.green, val);
 
                 mapPinRenderer.material.color = lerpedColor;
                 stemRenderer.material.color = lerpedColor;
             }
         }
-
     }
 
     public void ChangeColorPin(){

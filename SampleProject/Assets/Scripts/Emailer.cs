@@ -13,16 +13,14 @@ public class Emailer : MonoBehaviour
     const string kReceiverEmailAddress = "APSensors.Zanzibar@gmail.com";
 
     void Start() {
-        SendAnEmail( "Your sensor is offline" );
     }
 
-    // Method 1: Direct message
-    private static void SendAnEmail( string message ) {
+    public void SendAnEmail( string message ) {
         // Create mail
         MailMessage mail = new MailMessage();
         mail.From = new MailAddress( kSenderEmailAddress );
         mail.To.Add( kReceiverEmailAddress );
-        mail.Subject = "Sensor Offline";
+        mail.Subject = "Sensor Alert";
         mail.Body = message;
 
         // Setup server 

@@ -24,6 +24,7 @@ public class JSONReader : MonoBehaviour
         public int temp;
         public int tvox;
         public string time;
+        public string speciality;
     }
 
     public List<Sensor> sensors = new List<Sensor>(); 

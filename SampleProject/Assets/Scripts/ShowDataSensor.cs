@@ -22,7 +22,7 @@ public class ShowDataSensor : MonoBehaviour
                 SensorName.text = sensor.Name;
                 System.DateTime dateTime = System.DateTime.Parse(sensor.time);
                 DataDisplay.text = "ID: " + sensor._id + "\nBattery: " + sensor.battery + "\nCO2: " + sensor.CO2 + "\nHumidity: " + sensor.humidity + "\nPm10: " + sensor.pm10 + "\nPm2.5: " + sensor.pm25 + "\nPressure: " + sensor.pressure + "\nSalinity: " + sensor.salinity + "\ntemp= " + sensor.temp + "\nTvox: " + sensor.tvox + "\nDate: " + dateTime;
-            }
+            }   
         }
 
     }

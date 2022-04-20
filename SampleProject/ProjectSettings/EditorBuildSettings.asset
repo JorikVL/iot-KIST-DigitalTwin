@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Microsoft.Maps.Unity.Examples/UnityARMapExample/UnityARMapExample.unity
     guid: d94c9c1859f383d4eb2503dde6c282e7
   - enabled: 0
@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Microsoft.Maps.Unity.Examples/MapPinExample/MapPinExample.unity
     guid: 04c6dce4c43d9cd47b3b974b0e1c4f4c
+  - enabled: 1
+    path: Assets/Scenes/vitterb.unity
+    guid: 63a8cf7d801283345939b45c69ae1bdf
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: a68f851ea77061e4bad16c4c303927ee,
       type: 2}

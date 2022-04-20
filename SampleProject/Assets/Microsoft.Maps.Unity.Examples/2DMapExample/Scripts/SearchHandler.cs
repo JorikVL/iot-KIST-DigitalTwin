@@ -27,5 +27,39 @@ public class SearchHandler : MonoBehaviour
             var mapRenderer = GetComponent<MapRenderer>();
             mapRenderer.SetMapScene(new MapSceneOfLocationAndZoomLevel(location.Point, 13));
         }
+
+    }
+    public async void OnSearchString(string input)
+    {
+        if (MapSession.Current == null || string.IsNullOrWhiteSpace(MapSession.Current.DeveloperKey))
+        {
+            return;
+        }
+
+        var searchText = input;
+        var result = await MapLocationFinder.FindLocations(searchText);
+        if (result.Locations.Count > 0)
+        {
+            var location = result.Locations[0];
+            var mapRenderer = GetComponent<MapRenderer>();
+            mapRenderer.SetMapScene(new MapSceneOfLocationAndZoomLevel(location.Point, 13));
+        }
+    }
+
+    public async void Resetmap()
+    {
+        if (MapSession.Current == null || string.IsNullOrWhiteSpace(MapSession.Current.DeveloperKey))
+        {
+            return;
+        }
+
+        var searchText = "-6.09, 39.37";
+        var result = await MapLocationFinder.FindLocations(searchText);
+        if (result.Locations.Count > 0)
+        {
+            var location = result.Locations[0];
+            var mapRenderer = GetComponent<MapRenderer>();
+            mapRenderer.SetMapScene(new MapSceneOfLocationAndZoomLevel(location.Point, 10));
+        }
     }
 }

@@ -1,8 +1,8 @@
 # The application
 
-![image](https://user-images.githubusercontent.com/25724406/164173286-3aab6e9d-0f99-4645-9ee8-883bb29f3ee6.png)
+![image](https://user-images.githubusercontent.com/25724406/164180330-14465f97-7314-4565-8d1b-02834fef5743.png)
 
-...
+The application shows a map on which Sensors are shown, when you click on a sensor it shows it's data. The application gets the sensor's data by performing an API call to a node red server and dynamically places pins on the map according to their coordinates.
 
 # The code behind the application
 
@@ -86,22 +86,171 @@ The foreach loop will find the sensor with the same id and populate the text fie
     private GameObject manager;
     private JSONReader jsonReader;
 
-    void Start(){
+    void Start()
+    {
         manager = GameObject.Find("Manager");
         jsonReader = manager.GetComponent<JSONReader>();
     }
 
-    public void DisplayData(string id){
-        foreach (JSONReader.Sensor sensor in jsonReader.sensors){
-            if (sensor._id == id){
+    public void DisplayData(string id)
+    {
+        foreach (JSONReader.Sensor sensor in jsonReader.sensors)
+        {
+            if (sensor._id == id)
+            {
                 SensorName.text = sensor.Name;
                 System.DateTime dateTime = System.DateTime.Parse(sensor.time);
                 DataDisplay.text = "ID: " + sensor._id + "\nBattery: " + sensor.battery + "\nCO2: " + sensor.CO2 + "\nHumidity: " + sensor.humidity + "\nPm10: " + sensor.pm10 + "\nPm2.5: " + sensor.pm25 + "\nPressure: " + sensor.pressure + "\nSalinity: " + sensor.salinity + "\ntemp= " + sensor.temp + "\nTvox: " + sensor.tvox + "\nDate: " + dateTime;
             }   
         }
-
     }
     }
     
 <br>
 
+### OnMousePin
+
+The OnMousePin script is attached to each mapPin object. It contains the sensor id of the sensor it represents.  
+The start method will find the Manager and the showDataSensor script that is a component of the manager.  
+When the user clicks on a mapPin object the OnMouseDown method will detect this and call the method DisplayData of the showDataSensor script and pass along the sensor Id argument
+
+    public class OnMousePin : MonoBehaviour
+    {
+    public string sensorId;
+    private GameObject manager;
+    private ShowDataSensor showDataSensor;
+
+    void Start(){
+        //Get manager object and JSONReader component
+        manager = GameObject.Find("Manager");
+        showDataSensor = manager.GetComponent<ShowDataSensor>();
+    }
+
+    private void OnMouseDown() {
+        showDataSensor.DisplayData(sensorId);
+    }
+    }
+    
+<br>
+
+### DynamicallyCreatePins
+
+    public class DynamicallyCreatePins : MonoBehaviour
+    {
+    public GameObject pinPrefab;
+    public GameObject _Reader;
+    public List<GameObject> mapPins = new List<GameObject>(); 
+
+    private GameObject manager;
+    private JSONReader jsonReader;
+    private Emailer emailer;
+
+    void Start(){
+        manager = GameObject.Find("Manager");
+        jsonReader = manager.GetComponent<JSONReader>();
+        emailer = manager.GetComponent<Emailer>();
+        InvokeRepeating("PlacePins", 5, 60);
+    }
+
+    public void PlacePins(){
+        Debug.Log("Start DynamicallyCreatePins");
+        foreach (GameObject mapPin in mapPins){
+            Destroy(mapPin);
+        }
+
+        foreach (JSONReader.Sensor sensor in jsonReader.sensors)
+        {
+            if (sensor._id != null && sensor.Longtitude != null && sensor.Latitude != null){
+                Debug.Log("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
+                //Instantiate Pin & assign pin number
+                var mapPin = Instantiate(pinPrefab);
+                mapPins.Add(mapPin);
+                OnMousePin onMousePin = mapPin.GetComponent<OnMousePin>();
+                onMousePin.sensorId = sensor._id;
+
+                //Set pin as child of map
+                mapPin.transform.parent = gameObject.transform;
+                var mapPinComponent = mapPin.GetComponent<MapPin>();
+                LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
+                mapPinComponent.Location = _pos;
+                    
+                //Get object
+                var Root = FindObject(mapPin, "Root");
+                var Sphere = FindObject(Root, "Sphere");
+                var Stem = FindObject(Root, "MapPinStem");
+
+                //Set color objects
+                var mapPinRenderer = Sphere.GetComponent<Renderer>();
+                var stemRenderer = Stem.GetComponent<Renderer>();
+                float val = 0f;
+                ///TODO: Add convert to float and add extreme values for alerts
+                switch (sensor.speciality)
+                {
+                    case "temp":
+                        val = (float)sensor.temp;
+                        /*if (false){
+                            SendAlert("High temperature");
+                        }*/
+                        break;
+                    case "pressure":
+                        val = (float)sensor.pressure;
+                        /*if (false){
+                            SendAlert("High pressure");
+                        }*/
+                        break;
+                    case "pm25":
+                        val = (float)sensor.pm25;
+                        /*if (false){
+                            SendAlert("High pm2.5");
+                        }*/
+                        break;
+                    case "pm10":
+                        val = (float)sensor.pm10;
+                        /*if (false){
+                            SendAlert("High pm10");
+                        }*/
+                        break;
+                    case "humidity":
+                        val = (float)sensor.humidity;
+                        /*if (false){
+                            SendAlert("High humidity");
+                        }*/
+                        break;
+                    case "CO2":
+                        val = (float)sensor.CO2;
+                        /*if (false){
+                            SendAlert("High CO2");
+                        }*/
+                        break;
+                    case "tvox":
+                        val = (float)sensor.tvox;
+                        /*if (false){
+                            SendAlert("High tvox");
+                        }*/
+                        break;
+                    case "salinity":
+                        val = (float)sensor.salinity;
+                        /*if (false){
+                            SendAlert("High salinity");
+                        }*/
+                        break;
+                    default:
+                        Debug.Log("No important value found!");
+                        break;
+                }
+                Color lerpedColor = Color.Lerp(Color.red, Color.green, val);
+
+                mapPinRenderer.material.color = lerpedColor;
+                stemRenderer.material.color = lerpedColor;
+            }
+        }
+    }
+
+    public void SendAlert(string message){
+        emailer.SendAnEmail( message );
+    }
+
+    private GameObject FindObject(GameObject obj, string objToFind){
+        return obj.transform.Find(objToFind).gameObject;
+    }
+    }

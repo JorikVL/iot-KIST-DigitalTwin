@@ -19,12 +19,12 @@ public class Emailer : MonoBehaviour
 
     public void SetEmail( InputField email){
         kSenderEmailAddress = email.text;
-        Debug.Log(kSenderEmailAddress);
+        Debug.Log("EmailAddress changed!");
     }
 
     public void SetPassword( InputField password){
         kSenderPassword = password.text;
-        Debug.Log(kSenderPassword);
+        Debug.Log("Password changed!");
     }
 
     public void SendAnEmail( string message ) {

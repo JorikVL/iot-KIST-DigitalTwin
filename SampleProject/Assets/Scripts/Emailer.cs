@@ -14,9 +14,6 @@ public class Emailer : MonoBehaviour
     string kSenderPassword;
     const string kReceiverEmailAddress = "APSensors.Zanzibar@gmail.com";
 
-    void Start() {
-    }
-
     public void SetEmail( InputField email){
         kSenderEmailAddress = email.text;
         Debug.Log("EmailAddress changed!");

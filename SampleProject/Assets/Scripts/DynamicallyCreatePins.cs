@@ -45,11 +45,11 @@ public class DynamicallyCreatePins : MonoBehaviour
                     
                 //Get object
                 var Root = FindObject(mapPin, "Root");
-                var Cube = FindObject(Root, "Cube");
+                var Sphere = FindObject(Root, "Sphere");
                 var Stem = FindObject(Root, "MapPinStem");
 
                 //Set color objects
-                var mapPinRenderer = Cube.GetComponent<Renderer>();
+                var mapPinRenderer = Sphere.GetComponent<Renderer>();
                 var stemRenderer = Stem.GetComponent<Renderer>();
                 float val = 0f;
                 ///TODO: Add convert to float and add extreme values for alerts

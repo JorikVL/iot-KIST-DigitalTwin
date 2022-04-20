@@ -13,7 +13,6 @@ namespace Assets.APIScripts
         private const string API_KEY = "73cb75a2a3ef8b58e77c3581ec7b4726";
         private static string DEFAULT_URL = "http://192.168.100.134:1880/Data1";
         string targetUrl = DEFAULT_URL;
-        private string recentData = "";
         private JSONReader jsonReader;    
 
         private IEnumerator RequestRoutine(string url, Action<string> callback = null)

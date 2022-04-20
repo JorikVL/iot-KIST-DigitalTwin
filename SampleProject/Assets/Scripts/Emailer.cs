@@ -1,18 +1,30 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Emailer : MonoBehaviour
 {
 
-    const string kSenderEmailAddress = "APSensors.Zanzibar@gmail.com";
-    const string kSenderPassword = "APSensorsZanzibar2022";
+    string kSenderEmailAddress;
+    string kSenderPassword;
     const string kReceiverEmailAddress = "APSensors.Zanzibar@gmail.com";
 
     void Start() {
+    }
+
+    public void SetEmail( InputField email){
+        kSenderEmailAddress = email.text;
+        Debug.Log(kSenderEmailAddress);
+    }
+
+    public void SetPassword( InputField password){
+        kSenderPassword = password.text;
+        Debug.Log(kSenderPassword);
     }
 
     public void SendAnEmail( string message ) {

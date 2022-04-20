@@ -16,6 +16,16 @@ The engine supports development of both 2D and 3D applications and offers a prim
 The Bing maps sdk is used to display the world map in unity. The sdk handles streaming and rendering of 3D terrain data with world-wide coverage.
 https://github.com/microsoft/MapsSDK-Unity
 
+## GameObjects
+
+In the hierarchy you can see the different game objects.
+
+![image](https://user-images.githubusercontent.com/25724406/164205282-1f46a16e-070b-4f31-9035-a31935cfb859.png)
+
+- The Map object contains the Bing maps scripts and has the DynamicallyCreatePins Script attached to it.
+- The Manager object contains the JSONReader, APICall, ShowDataSensor and Emailer script.
+- The canvas is used for the UI and contains all the images, textfields and buttons.
+
 ## Scripts
 
 ### JSONReader

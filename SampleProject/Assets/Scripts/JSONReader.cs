@@ -43,4 +43,8 @@ public class JSONReader : MonoBehaviour
             Debug.Log("Add sensor to list failed!");
         }
     }
+
+    public void ClearSensorList(){
+        sensors.Clear();
+    }
 }

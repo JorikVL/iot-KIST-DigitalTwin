@@ -26,7 +26,6 @@ namespace Assets.APIScripts
 
         private void ResponseCallback(string data)
         {
-            jsonReader = this.GetComponent<JSONReader>();
             jsonReader.AddSensor(data);
         }
 
@@ -37,11 +36,13 @@ namespace Assets.APIScripts
 
         public void Start()
         {
+            jsonReader = this.GetComponent<JSONReader>();
             InvokeRepeating("GetData", 0, 300);
         }
 
         public void GetData(){
             Debug.Log("GetData");
+            jsonReader.ClearSensorList();
             for (int i = 1; i <= 20; i++)
             {
                 targetUrl = "http://192.168.100.134:1880/Data" + i;

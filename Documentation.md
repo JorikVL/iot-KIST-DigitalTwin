@@ -1,8 +1,19 @@
-# Unity Documentation for IOT-KIST-DigitalTwin
+# The application
+
+![image](https://user-images.githubusercontent.com/25724406/164173286-3aab6e9d-0f99-4645-9ee8-883bb29f3ee6.png)
+
+...
+
+# The code behind the application
+
+## Unity
+
+Unity is a game engine that supports desktop, mobile, console and virtual reality platforms.  
+The engine supports development of both 2D and 3D applications and offers a primarly scripting API in C#.
 
 ## The map
 
-The Bing maps sdk is used to display the world map. The sdk handles streaming and rendering of 3D terrain data with world-wide coverage.
+The Bing maps sdk is used to display the world map in unity. The sdk handles streaming and rendering of 3D terrain data with world-wide coverage.
 https://github.com/microsoft/MapsSDK-Unity
 
 ## Scripts
@@ -56,3 +67,41 @@ If there is a error in the method the try catch will show an error message in th
             Debug.Log("Add sensor to list failed!");
         }
     }
+
+<br>
+
+### ShowDataSensor
+
+When the user clicks on a mappin the text field on the left of the screen will show the selected sensors data.  
+The sensor has 2 public Text field, here we put the 2 Text objects where we want to display our data.  
+When the Start() method is called it will find the "Manager" object and the "JSONReader" component.  
+The DisplayData method is called from the OnMousePin script that is attached to each mappin, this will call the method with the id of the sensor as argument.  
+The foreach loop will find the sensor with the same id and populate the text fields with its data.
+
+    public class ShowDataSensor : MonoBehaviour
+    {
+    public Text DataDisplay;
+    public Text SensorName;
+
+    private GameObject manager;
+    private JSONReader jsonReader;
+
+    void Start(){
+        manager = GameObject.Find("Manager");
+        jsonReader = manager.GetComponent<JSONReader>();
+    }
+
+    public void DisplayData(string id){
+        foreach (JSONReader.Sensor sensor in jsonReader.sensors){
+            if (sensor._id == id){
+                SensorName.text = sensor.Name;
+                System.DateTime dateTime = System.DateTime.Parse(sensor.time);
+                DataDisplay.text = "ID: " + sensor._id + "\nBattery: " + sensor.battery + "\nCO2: " + sensor.CO2 + "\nHumidity: " + sensor.humidity + "\nPm10: " + sensor.pm10 + "\nPm2.5: " + sensor.pm25 + "\nPressure: " + sensor.pressure + "\nSalinity: " + sensor.salinity + "\ntemp= " + sensor.temp + "\nTvox: " + sensor.tvox + "\nDate: " + dateTime;
+            }   
+        }
+
+    }
+    }
+    
+<br>
+

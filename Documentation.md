@@ -24,6 +24,7 @@ In the hierarchy you can see the different game objects.
 
 - The Map object contains the Bing maps scripts and has the DynamicallyCreatePins Script attached to it.
 - The Manager object contains the JSONReader, APICall, ShowDataSensor and Emailer script.
+    ![image](https://user-images.githubusercontent.com/25724406/164406340-16cc05fb-09f5-44fb-8bd4-4baa7baffdb2.png)
 - The canvas is used for the UI and contains all the images, textfields and buttons.
 
 ## Scripts
@@ -149,6 +150,13 @@ When the user clicks on a mapPin object the OnMouseDown method will detect this 
 The DynamicallyCreatePins script automatically places the mapPins from the sensor list on the map.  
 In the Start method it finds the manager script and the jsonReader and emailer component so it access the variables and methods, the InvokeRepeating function which will execute te PlacePins method after 5 seconds and execute it every 60 seconds.  
 
+    void Start(){
+        manager = GameObject.Find("Manager");
+        jsonReader = manager.GetComponent<JSONReader>();
+        emailer = manager.GetComponent<Emailer>();
+        InvokeRepeating("PlacePins", 5, 60);
+    }
+
 The PlacePins method start by deleting all existing mapPins so that it does not create duplicates.  
 Then it loop over all te sensors in the sensor list from the JSONReader script.
 if the sensor and its position in not equal to null it can be placed on the map.  
@@ -166,12 +174,7 @@ The pin gets set as a child of the map object and the coordinates get assigned.
     private JSONReader jsonReader;
     private Emailer emailer;
 
-    void Start(){
-        manager = GameObject.Find("Manager");
-        jsonReader = manager.GetComponent<JSONReader>();
-        emailer = manager.GetComponent<Emailer>();
-        InvokeRepeating("PlacePins", 5, 60);
-    }
+
 
     public void PlacePins(){
         Debug.Log("Start DynamicallyCreatePins");
@@ -194,6 +197,10 @@ The pin gets set as a child of the map object and the coordinates get assigned.
                 var mapPinComponent = mapPin.GetComponent<MapPin>();
                 LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
                 mapPinComponent.Location = _pos;
+                    
+The sensor pin will be given a color between green and red depending on its primary value.  
+The color will be calculeted using the Color.Lerp function, this function linearly interpolates between 2 colors by a float value.
+To assign the color to the pin we first get the different parts of the MapPin prefab object, Then we get the renderer component and assign the color to the material.color.
                     
                 //Get object
                 var Root = FindObject(mapPin, "Root");

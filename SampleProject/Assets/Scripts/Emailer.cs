@@ -10,25 +10,31 @@ using UnityEngine.UI;
 public class Emailer : MonoBehaviour
 {
 
-    string kSenderEmailAddress;
-    string kSenderPassword;
-    const string kReceiverEmailAddress = "APSensors.Zanzibar@gmail.com";
+    private string kSenderEmailAddress;
+    private string kSenderPassword;
+    private string kReceiverEmailAddress;
 
-    public void SetEmail( InputField email){
-        kSenderEmailAddress = email.text;
-        Debug.Log("EmailAddress changed!");
+    public Notification notification;
+    public InputField senderEmail;
+    public InputField senderPassword;
+    public InputField receiverEmail;
+
+    private void Start() {
+        SetEmail();
     }
 
-    public void SetPassword( InputField password){
-        kSenderPassword = password.text;
-        Debug.Log("Password changed!");
+    public void SetEmail() {
+        kSenderEmailAddress = senderEmail.text;
+        kSenderPassword = senderPassword.text;
+        kReceiverEmailAddress = receiverEmail.text;
+        Debug.Log("Email Set");
     }
 
-    public void SendAnEmail( string message ) {
+    public void SendAnEmail(string message) {
         // Create mail
         MailMessage mail = new MailMessage();
-        mail.From = new MailAddress( kSenderEmailAddress );
-        mail.To.Add( kReceiverEmailAddress );
+        mail.From = new MailAddress(kSenderEmailAddress);
+        mail.To.Add(kReceiverEmailAddress);
         mail.Subject = "Sensor Alert";
         mail.Body = message;
 
@@ -41,19 +47,20 @@ public class Emailer : MonoBehaviour
         ServicePointManager.ServerCertificateValidationCallback =
             delegate ( object s, X509Certificate certificate,
             X509Chain chain, SslPolicyErrors sslPolicyErrors ) {
-                Debug.Log( "Email success!" );
+                Debug.Log("Email success!");
                 return true;
             };
 
         // Send mail to server, print results
         try {
-            smtpServer.Send( mail );
+            smtpServer.Send(mail);
         }
         catch ( System.Exception e ) {
-            Debug.Log( "Email error: " + e.Message );
+            Debug.Log("Email error: " + e.Message);
+            notification.Notify("Email error: " + e.Message);
         }
         finally {
-            Debug.Log( "Email sent!" );
+            Debug.Log("Email sent!");
         }
     }
 }

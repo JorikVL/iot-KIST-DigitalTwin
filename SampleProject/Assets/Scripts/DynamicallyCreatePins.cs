@@ -56,54 +56,55 @@ public class DynamicallyCreatePins : MonoBehaviour
                 var mapPinRenderer = Sphere.GetComponent<Renderer>();
                 var stemRenderer = Stem.GetComponent<Renderer>();
                 float val = 0f;
+
                 ///TODO: Add convert to float and add extreme values for alerts
                 switch (sensor.speciality)
                 {
                     case "temp":
                         val = (float)sensor.temp;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High temperature");
                         }*/
                         break;
                     case "pressure":
                         val = (float)sensor.pressure;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High pressure");
                         }*/
                         break;
                     case "pm25":
                         val = (float)sensor.pm25;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High pm2.5");
                         }*/
                         break;
                     case "pm10":
                         val = (float)sensor.pm10;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High pm10");
                         }*/
                         break;
                     case "humidity":
                         val = (float)sensor.humidity;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High humidity");
                         }*/
                         break;
                     case "CO2":
                         val = (float)sensor.CO2;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High CO2");
                         }*/
                         break;
                     case "tvox":
                         val = (float)sensor.tvox;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High tvox");
                         }*/
                         break;
                     case "salinity":
                         val = (float)sensor.salinity;
-                        /*if (false){
+                        /*if (val > ){
                             SendAlert("High salinity");
                         }*/
                         break;

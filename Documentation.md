@@ -59,7 +59,7 @@ When the script is first initiated it creates a list "sensors" of the object "Se
     public List<Sensor> sensors = new List<Sensor>(); 
     
 <br>
-The "AddSensor" method creates a new sensor called "newSensor" it uses the JsonUtility.FromJson method to create a Sensor object from the json string argument.  
+The "AddSensor" method creates a new sensor called "newSensor" it uses the JsonUtility.FromJson method to create a Sensor object from the json text that was passed trough the string argument of the method.  
 The if structure checks if the "newSensor" object contains data. If true it adds the sensor to the list "sensors".  
 If there is a error in the method the try catch will show an error message in the debug console.
 
@@ -85,8 +85,9 @@ If there is a error in the method the try catch will show an error message in th
 When the user clicks on a mappin the text field on the left of the screen will show the selected sensors data.  
 The sensor has 2 public Text field, here we put the 2 Text objects where we want to display our data.  
 When the Start() method is called it will find the "Manager" object and the "JSONReader" component.  
+This alows us to access the sensor list that was created in the JSONReader script.  
 The DisplayData method is called from the OnMousePin script that is attached to each mappin, this will call the method with the id of the sensor as argument.  
-The foreach loop will find the sensor with the same id and populate the text fields with its data.
+The foreach loop will loop over all the sensors in the list and find the sensor with the same id and populate the text fields with its data.
 
     public class ShowDataSensor : MonoBehaviour
     {
@@ -121,8 +122,8 @@ The foreach loop will find the sensor with the same id and populate the text fie
 ### OnMousePin
 
 The OnMousePin script is attached to each mapPin object. It contains the sensor id of the sensor it represents.  
-The start method will find the Manager and the showDataSensor script that is a component of the manager.  
-When the user clicks on a mapPin object the OnMouseDown method will detect this and call the method DisplayData of the showDataSensor script and pass along the sensor Id argument
+The start method will find the Manager and the showDataSensor script that is a component of the manager so that we can use its methods.  
+When the user clicks on a mapPin object the OnMouseDown method will detect this and call the method DisplayData of the showDataSensor script and pass along the sensor Id argument.
 
     public class OnMousePin : MonoBehaviour
     {
@@ -144,6 +145,16 @@ When the user clicks on a mapPin object the OnMouseDown method will detect this 
 <br>
 
 ### DynamicallyCreatePins
+
+The DynamicallyCreatePins script automatically places the mapPins from the sensor list on the map.  
+In the Start method it finds the manager script and the jsonReader and emailer component so it access the variables and methods, the InvokeRepeating function which will execute te PlacePins method after 5 seconds and execute it every 60 seconds.  
+
+The PlacePins method start by deleting all existing mapPins so that it does not create duplicates.  
+Then it loop over all te sensors in the sensor list from the JSONReader script.
+if the sensor and its position in not equal to null it can be placed on the map.  
+It uses the mapPin prefab to create a new GameObject with the OnMousePin script on it, this will include te sensor id.  
+The pin gets set as a child of the map object and the coordinates get assigned.  
+
 
     public class DynamicallyCreatePins : MonoBehaviour
     {
@@ -262,5 +273,28 @@ When the user clicks on a mapPin object the OnMouseDown method will detect this 
 
     private GameObject FindObject(GameObject obj, string objToFind){
         return obj.transform.Find(objToFind).gameObject;
+    }
+    }
+
+## Notification
+
+The notification script allows us to display notifications on screen.  
+When te Notify method is called it start a coroutine.  
+A coroutine can be paused with the yield statement and allows us to only display the notification for 3 seconds.
+
+    public class Notification : MonoBehaviour
+    {
+    public GameObject notificationPanel;
+    public TMP_Text notificationText;
+
+    public void Notify(string text){
+        StartCoroutine(showPanel(text));
+    }
+
+    IEnumerator showPanel(string text){
+        notificationPanel.SetActive(true);
+        notificationText.text = text;
+        yield return new WaitForSeconds(3);
+        notificationPanel.SetActive(false);
     }
     }

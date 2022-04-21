@@ -34,6 +34,7 @@ public class DynamicallyCreatePins : MonoBehaviour
             if (sensor._id != null && sensor.Longtitude != null && sensor.Latitude != null){
                 Debug.Log("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
                 notification.Notify("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
+
                 //Instantiate Pin & assign pin number
                 var mapPin = Instantiate(pinPrefab);
                 mapPins.Add(mapPin);
@@ -46,12 +47,12 @@ public class DynamicallyCreatePins : MonoBehaviour
                 LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
                 mapPinComponent.Location = _pos;
                     
-                //Get object
+                //Get mappin objects
                 var Root = FindObject(mapPin, "Root");
                 var Sphere = FindObject(Root, "Sphere");
                 var Stem = FindObject(Root, "MapPinStem");
 
-                //Set color objects
+                //Set color mappin objects
                 var mapPinRenderer = Sphere.GetComponent<Renderer>();
                 var stemRenderer = Stem.GetComponent<Renderer>();
                 float val = 0f;
@@ -120,6 +121,7 @@ public class DynamicallyCreatePins : MonoBehaviour
 
     public void SendAlert(string message){
         emailer.SendAnEmail( message );
+        notification.Notify(message);
     }
 
     private GameObject FindObject(GameObject obj, string objToFind){

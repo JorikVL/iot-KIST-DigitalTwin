@@ -13,7 +13,8 @@ namespace Assets.APIScripts
         private const string API_KEY = "73cb75a2a3ef8b58e77c3581ec7b4726";
         private static string DEFAULT_URL = "http://192.168.100.134:1880/Data1";
         string targetUrl = DEFAULT_URL;
-        private JSONReader jsonReader;    
+        private JSONReader jsonReader;
+        private Notification notification;  
 
         private IEnumerator RequestRoutine(string url, Action<string> callback = null)
         {
@@ -36,6 +37,7 @@ namespace Assets.APIScripts
         public void Start()
         {
             jsonReader = this.GetComponent<JSONReader>();
+            notification = this.GetComponent<Notification>();
             InvokeRepeating("GetData", 0, 300);
         }
 
@@ -52,6 +54,7 @@ namespace Assets.APIScripts
                 catch (System.Exception)
                 {
                     Debug.Log("APICall failed");
+                    notification.Notify("APICall failed");
                 }
             }
         }

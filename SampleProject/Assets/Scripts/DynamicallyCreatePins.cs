@@ -13,11 +13,13 @@ public class DynamicallyCreatePins : MonoBehaviour
     private GameObject manager;
     private JSONReader jsonReader;
     private Emailer emailer;
+    private Notification notification;
 
     void Start(){
         manager = GameObject.Find("Manager");
         jsonReader = manager.GetComponent<JSONReader>();
         emailer = manager.GetComponent<Emailer>();
+        notification = manager.GetComponent<Notification>();
         InvokeRepeating("PlacePins", 5, 60);
     }
 
@@ -31,6 +33,7 @@ public class DynamicallyCreatePins : MonoBehaviour
         {
             if (sensor._id != null && sensor.Longtitude != null && sensor.Latitude != null){
                 Debug.Log("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
+                notification.Notify("Place sensor: " + sensor._id + " with position: " + sensor.Longtitude + ", " + sensor.Latitude);
                 //Instantiate Pin & assign pin number
                 var mapPin = Instantiate(pinPrefab);
                 mapPins.Add(mapPin);

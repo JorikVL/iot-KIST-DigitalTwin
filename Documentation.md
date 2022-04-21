@@ -1,15 +1,18 @@
-# The application
+# Introduction
+
+This project was developed to visualizes sensors and their data on a interactive map.
 
 ![image](https://user-images.githubusercontent.com/25724406/164180330-14465f97-7314-4565-8d1b-02834fef5743.png)
 
-The application shows a map on which Sensors are shown, when you click on a sensor it shows it's data. The application gets the sensor's data by performing an API call to a node red server and dynamically places pins on the map according to their coordinates.
+The application shows a map on which Sensors are shown, when you click on a sensor it shows it's data. The application gets the sensor's data by performing an API call to a node red server and acording to their response, places the sensor on the map.
 
-# The code behind the application
+# Code
 
 ## Unity
 
-Unity is a game engine that supports desktop, mobile, console and virtual reality platforms.  
-The engine supports development of both 2D and 3D applications and offers a primarly scripting API in C#.
+This project was made with unity, unity is a game engine that supports desktop, mobile, console and virtual reality platforms.  
+The engine supports development of both 2D and 3D applications and offers a primarly scripting API in C#.  
+https://unity.com/
 
 ## The map
 
@@ -23,16 +26,17 @@ In the hierarchy you can see the different game objects.
 ![image](https://user-images.githubusercontent.com/25724406/164205282-1f46a16e-070b-4f31-9035-a31935cfb859.png)
 
 - The Map object contains the Bing maps scripts and has the DynamicallyCreatePins Script attached to it.
-- The Manager object contains the JSONReader, APICall, ShowDataSensor and Emailer script.
+- The canvas is used for the UI and contains all the images, textfields, buttons,... .
+- The Manager object contains the JSONReader, APICall, ShowDataSensor, Emailer and Notification script.
     ![image](https://user-images.githubusercontent.com/25724406/164406340-16cc05fb-09f5-44fb-8bd4-4baa7baffdb2.png)
-- The canvas is used for the UI and contains all the images, textfields and buttons.
 
 ## Scripts
 
 ### JSONReader
 
-The JSONReader script contains a class "Sensor" that contains all the variables that the json file contains.  
-To be able to use JsonUtility with this class it is required that the class is supported by **[Serializable]**.
+The JSONReader script is used convert a json file containing the sensors to objects.  
+The script has a class "Sensor" that contains all the variables from the json file.  
+To be able to use [JsonUtility](https://docs.unity3d.com/ScriptReference/JsonUtility.html) with this class it is required that the class is supported by **[Serializable]**.
 
     [Serializable]
     public class Sensor
@@ -55,12 +59,14 @@ To be able to use JsonUtility with this class it is required that the class is s
     }
     
 <br>
-When the script is first initiated it creates a list "sensors" of the object "Sensor".
+
+When the script is first initiated it creates a list "sensors" of the object "Sensor" to store all the sensors.  
 
     public List<Sensor> sensors = new List<Sensor>(); 
     
 <br>
-The "AddSensor" method creates a new sensor called "newSensor" it uses the JsonUtility.FromJson method to create a Sensor object from the json text that was passed trough the string argument of the method.  
+
+The "AddSensor" method creates a new sensor called "newSensor" it uses the [JsonUtility.FromJson](https://docs.unity3d.com/ScriptReference/JsonUtility.FromJson.html) method to create a Sensor object from the json text that was passed trough the string argument of the method.  
 The if structure checks if the "newSensor" object contains data. If true it adds the sensor to the list "sensors".  
 If there is a error in the method the try catch will show an error message in the debug console.
 
@@ -84,9 +90,11 @@ If there is a error in the method the try catch will show an error message in th
 ### ShowDataSensor
 
 When the user clicks on a mappin the text field on the left of the screen will show the selected sensors data.  
-The sensor has 2 public Text field, here we put the 2 Text objects where we want to display our data.  
+The sensor has two public Text field, here we put the two Text objects where we want to display our data. 
+
 When the Start() method is called it will find the "Manager" object and the "JSONReader" component.  
-This alows us to access the sensor list that was created in the JSONReader script.  
+This alows us to access the sensor list that was created in the JSONReader script. 
+
 The DisplayData method is called from the OnMousePin script that is attached to each mappin, this will call the method with the id of the sensor as argument.  
 The foreach loop will loop over all the sensors in the list and find the sensor with the same id and populate the text fields with its data.
 
@@ -123,7 +131,8 @@ The foreach loop will loop over all the sensors in the list and find the sensor 
 ### OnMousePin
 
 The OnMousePin script is attached to each mapPin object. It contains the sensor id of the sensor it represents.  
-The start method will find the Manager and the showDataSensor script that is a component of the manager so that we can use its methods.  
+The start method will find the Manager and the showDataSensor script that is a component of the manager so that we can use its methods. 
+
 When the user clicks on a mapPin object the OnMouseDown method will detect this and call the method DisplayData of the showDataSensor script and pass along the sensor Id argument.
 
     public class OnMousePin : MonoBehaviour
@@ -148,7 +157,8 @@ When the user clicks on a mapPin object the OnMouseDown method will detect this 
 ### DynamicallyCreatePins
 
 The DynamicallyCreatePins script automatically places the mapPins from the sensor list on the map.  
-In the Start method it finds the manager script and the jsonReader and emailer component so it access the variables and methods, the InvokeRepeating function which will execute te PlacePins method after 5 seconds and execute it every 60 seconds.  
+
+In the Start method it finds the manager script and the jsonReader and emailer component so it can access their variables and methods, the [InvokeRepeating](https://docs.unity3d.com/ScriptReference/MonoBehaviour.InvokeRepeating.html) function which will execute te PlacePins method after 5 seconds and execute it every 60 seconds.  
 
     void Start(){
         manager = GameObject.Find("Manager");
@@ -156,25 +166,15 @@ In the Start method it finds the manager script and the jsonReader and emailer c
         emailer = manager.GetComponent<Emailer>();
         InvokeRepeating("PlacePins", 5, 60);
     }
+  
+ <br>
 
 The PlacePins method start by deleting all existing mapPins so that it does not create duplicates.  
-Then it loop over all te sensors in the sensor list from the JSONReader script.
-if the sensor and its position in not equal to null it can be placed on the map.  
-It uses the mapPin prefab to create a new GameObject with the OnMousePin script on it, this will include te sensor id.  
+Then it loop over all te sensors in the sensor list from the JSONReader script.  
+If the sensor and its position is not equal to null it can be placed on the map.  
+
+To place the pin it uses the mapPin prefab to create a new GameObject with the OnMousePin script component on it, this will include the sensor id.  
 The pin gets set as a child of the map object and the coordinates get assigned.  
-
-
-    public class DynamicallyCreatePins : MonoBehaviour
-    {
-    public GameObject pinPrefab;
-    public GameObject _Reader;
-    public List<GameObject> mapPins = new List<GameObject>(); 
-
-    private GameObject manager;
-    private JSONReader jsonReader;
-    private Emailer emailer;
-
-
 
     public void PlacePins(){
         Debug.Log("Start DynamicallyCreatePins");
@@ -198,8 +198,11 @@ The pin gets set as a child of the map object and the coordinates get assigned.
                 LatLon _pos = new LatLon(sensor.Latitude, sensor.Longtitude);
                 mapPinComponent.Location = _pos;
                     
+<br>
+                    
 The sensor pin will be given a color between green and red depending on its primary value.  
-The color will be calculeted using the Color.Lerp function, this function linearly interpolates between 2 colors by a float value.
+The color will be calculated using the [Color.Lerp](https://docs.unity3d.com/ScriptReference/Color.Lerp.html) function, this function linearly interpolates between 2 colors by a float value.
+
 To assign the color to the pin we first get the different parts of the MapPin prefab object, Then we get the renderer component and assign the color to the material.color.
                     
                 //Get object
@@ -283,11 +286,14 @@ To assign the color to the pin we first get the different parts of the MapPin pr
     }
     }
 
+<br>
+
 ## Notification
 
-The notification script allows us to display notifications on screen.  
-When te Notify method is called it start a coroutine.  
-A coroutine can be paused with the yield statement and allows us to only display the notification for 3 seconds.
+The notification script allows us to display notifications on screen. The notificationPanel and notificationText are assigned using the inspector.  
+
+When the Notify method is called it start a coroutine.  
+A [coroutine](https://docs.unity3d.com/ScriptReference/Coroutine.html) can be paused with the [yield](https://docs.unity3d.com/ScriptReference/YieldInstruction.html) statement and allows us to only display the notification for 3 seconds.
 
     public class Notification : MonoBehaviour
     {
@@ -305,3 +311,5 @@ A coroutine can be paused with the yield statement and allows us to only display
         notificationPanel.SetActive(false);
     }
     }
+
+<br>

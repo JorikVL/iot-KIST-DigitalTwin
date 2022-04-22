@@ -310,7 +310,7 @@ To assign the color to the pin we first get the different parts of the MapPin pr
 
 <br>
 
-## Notification
+### Notification
 
 The notification script allows us to display notifications on screen. The notificationPanel and notificationText are assigned using the inspector.  
 
@@ -336,7 +336,7 @@ A [coroutine](https://docs.unity3d.com/ScriptReference/Coroutine.html) can be pa
 
 <br>
 
-## Emailer
+### Emailer
 
 The Emailer script allows us to send emails to notify users.  
 The private strings will contain the emailaddreses and password to send a email. 

@@ -1,10 +1,30 @@
 # Introduction
 
-This project was developed to visualizes sensors and their data on a interactive map.
+This goal of this project was to visualizes sensors and their data on a interactive map.  
 
-![image](https://user-images.githubusercontent.com/25724406/164180330-14465f97-7314-4565-8d1b-02834fef5743.png)
+The application shows a map on which Sensors are shown, when you click on a sensor it shows it's data.  
+The application gets the sensor's data by performing an API call and acording to their response, places the sensor on the correct coordinates.  
+*(The sensors data shown in the following pictures is test data)*
 
-The application shows a map on which Sensors are shown, when you click on a sensor it shows it's data. The application gets the sensor's data by performing an API call to a node red server and acording to their response, places the sensor on the map.
+![image](https://user-images.githubusercontent.com/25724406/164618212-585a9d6a-9f8c-4bee-910c-0720bd78f3fb.png)
+
+<br>
+
+![image](https://user-images.githubusercontent.com/25724406/164618421-365a8711-f5ae-4bd0-9634-10978b35d3c0.png)
+
+<br>
+
+The application can send email alerts when the sensors value drops below a set value. It is possible to change the sender and receiver adres with a pop-up panel.
+
+![image](https://user-images.githubusercontent.com/25724406/164619914-e3d559a4-6721-4b57-bfb1-c8e1c50db118.png)
+
+<br>
+
+The application also has the ability to show messages and alerts on screen.
+
+![image](https://user-images.githubusercontent.com/25724406/164621015-ec31ed77-9679-4288-a3ca-f5fcbb54c9ea.png)
+
+<br>
 
 # Code
 
@@ -34,9 +54,9 @@ In the hierarchy you can see the different game objects.
 
 ### JSONReader
 
-The JSONReader script is used convert a json file containing the sensors to objects.  
+The JSONReader script is used convert a json file containing the sensors data to sensor objects that we can work with.  
 The script has a class "Sensor" that contains all the variables from the json file.  
-To be able to use [JsonUtility](https://docs.unity3d.com/ScriptReference/JsonUtility.html) with this class it is required that the class is supported by **[Serializable]**.
+To be able to use [JsonUtility](https://docs.unity3d.com/ScriptReference/JsonUtility.html) with this class it is required that the class is supported by *[Serializable]*.
 
     [Serializable]
     public class Sensor
@@ -60,7 +80,7 @@ To be able to use [JsonUtility](https://docs.unity3d.com/ScriptReference/JsonUti
     
 <br>
 
-When the script is first initiated it creates a list "sensors" of the object "Sensor" to store all the sensors.  
+When the script is first initiated it creates a list "sensors" of the class "Sensor" to store all the sensors.  
 
     public List<Sensor> sensors = new List<Sensor>(); 
     
@@ -97,7 +117,7 @@ This alows us to access the sensor list that was created in the JSONReader scrip
 
 The DisplayData method is called from the OnMousePin script that is attached to each mappin, this will call the method with the id of the sensor as argument.  
 The foreach loop will loop over all the sensors in the list and find the sensor with the same id and populate the text fields with its data.
-
+ 
     public class ShowDataSensor : MonoBehaviour
     {
     public Text DataDisplay;
@@ -201,9 +221,11 @@ The pin gets set as a child of the map object and the coordinates get assigned.
 <br>
                     
 The sensor pin will be given a color between green and red depending on its primary value.  
-The color will be calculated using the [Color.Lerp](https://docs.unity3d.com/ScriptReference/Color.Lerp.html) function, this function linearly interpolates between 2 colors by a float value.
+The color will be calculated using the [Color.Lerp](https://docs.unity3d.com/ScriptReference/Color.Lerp.html) function, this function linearly interpolates between 2 colors by a float value.  
 
-To assign the color to the pin we first get the different parts of the MapPin prefab object, Then we get the renderer component and assign the color to the material.color.
+To assign the color to the pin we first get the different parts of the MapPin prefab object, Then we get the renderer component and assign the color to the material.color.  
+
+*The case stucture to convert the integer to float and to check if the sensor reaches a critical value is not yet filled with the final data*  
                     
                 //Get object
                 var Root = FindObject(mapPin, "Root");
@@ -313,3 +335,82 @@ A [coroutine](https://docs.unity3d.com/ScriptReference/Coroutine.html) can be pa
     }
 
 <br>
+
+## Emailer
+
+The Emailer script allows us to send emails to notify users.  
+The private strings will contain the emailaddreses and password to send a email. 
+
+In the Start() method it will run SetEmail(), this sets up the adress and password with the default value when starting the application.
+
+The SetEmail() method reads the data from the inputfields and assigns it to the private variables, the inputfield are assigned to the public variables using the inspector in the Unity editor. This method will run when we change the email using the gui.
+
+ 
+    public class Emailer : MonoBehaviour
+    {
+
+    private string kSenderEmailAddress;
+    private string kSenderPassword;
+    private string kReceiverEmailAddress;
+
+    public Notification notification;
+    public InputField senderEmail;
+    public InputField senderPassword;
+    public InputField receiverEmail;
+
+    private void Start() {
+        SetEmail();
+    }
+
+    public void SetEmail() {
+        kSenderEmailAddress = senderEmail.text;
+        kSenderPassword = senderPassword.text;
+        kReceiverEmailAddress = receiverEmail.text;
+        Debug.Log("Email Set");
+    }
+
+<br>
+
+The SendAnEmail method uses the [System.Net.Mail Namespace](https://docs.microsoft.com/en-us/dotnet/api/system.net.mail?view=net-6.0) to send an email using a smtp server.  
+It will create a new MailMessage object, then we add the message, sender, receiver to the mail object.  
+
+To setup the server we create a new [smtpClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.mail.smtpclient?view=net-6.0) object called smtpServer, we assign it the port, credentials and enable ssl.  
+Then we use ServicePointManager to setup a http connection.
+
+    public void SendAnEmail(string message) {
+        // Create mail
+        MailMessage mail = new MailMessage();
+        mail.From = new MailAddress(kSenderEmailAddress);
+        mail.To.Add(kReceiverEmailAddress);
+        mail.Subject = "Sensor Alert";
+        mail.Body = message;
+
+        // Setup server 
+        SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+        smtpServer.Port = 587;
+        smtpServer.Credentials = new NetworkCredential(
+            kSenderEmailAddress, kSenderPassword ) as ICredentialsByHost;
+        smtpServer.EnableSsl = true;
+        ServicePointManager.ServerCertificateValidationCallback =
+            delegate ( object s, X509Certificate certificate,
+            X509Chain chain, SslPolicyErrors sslPolicyErrors ) {
+                Debug.Log("Email success!");
+                return true;
+            };
+
+<br>
+
+Now we will try to send the email if it fails we will show an error, if succesfull we log *Email sent*.
+
+        // Send mail to server, print results
+        try {
+            smtpServer.Send(mail);
+        }
+        catch ( System.Exception e ) {
+            Debug.Log("Email error: " + e.Message);
+            notification.Notify("Email error: " + e.Message);
+        }
+        finally {
+            Debug.Log("Email sent!");
+        }
+    }

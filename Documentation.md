@@ -2,8 +2,8 @@
 
 This goal of this project was to visualizes sensors and their data on a interactive map.  
 
-The application shows a map on which Sensors are shown, when you click on a sensor it shows it's data.  
-The application gets the sensor's data by performing an API call and acording to their response, places the sensor on the correct coordinates.  
+The application shows a map on which Sensors are placed, when you click on a sensor it shows it's data.  
+The application gets the sensor's data by performing an API call and according to their response, it places the sensor on the correct coordinates.  
 *(The sensors data shown in the following pictures is test data)*
 
 ![image](https://user-images.githubusercontent.com/25724406/164618212-585a9d6a-9f8c-4bee-910c-0720bd78f3fb.png)
@@ -41,7 +41,7 @@ https://github.com/microsoft/MapsSDK-Unity
 
 ## GameObjects
 
-In the hierarchy you can see the different game objects.
+In the Unity project hierarchy you can see the different game objects.
 
 ![image](https://user-images.githubusercontent.com/25724406/164205282-1f46a16e-070b-4f31-9035-a31935cfb859.png)
 
@@ -54,7 +54,7 @@ In the hierarchy you can see the different game objects.
 
 ### JSONReader
 
-The JSONReader script is used convert a json file containing the sensors data to sensor objects that we can work with.  
+The JSONReader script is used to convert a json file containing the sensors data to sensor objects that we can work with.  
 The script has a class "Sensor" that contains all the variables from the json file.  
 To be able to use [JsonUtility](https://docs.unity3d.com/ScriptReference/JsonUtility.html) with this class it is required that the class is supported by *[Serializable]*.
 

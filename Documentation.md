@@ -20,6 +20,10 @@ The application can send email alerts when the sensors value drops below a set v
 
 <br>
 
+![SensorAlert](https://user-images.githubusercontent.com/25724406/165459096-6e37597b-b05e-4da8-8a4f-c044685f2699.png)
+
+<br>
+
 The application also has the ability to show messages and alerts on screen.
 
 ![image](https://user-images.githubusercontent.com/25724406/164621015-ec31ed77-9679-4288-a3ca-f5fcbb54c9ea.png)
